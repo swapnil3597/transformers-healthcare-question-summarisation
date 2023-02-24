@@ -49,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: job_links
-          path: /workspace/transformers/warnings_in_ci/job_links.json
+          path: /workspace/transformers/job_links.json
