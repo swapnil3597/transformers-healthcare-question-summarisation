@@ -42,7 +42,7 @@ jobs:
 
       - name: Extract warnings in CI artifacts
         run: |
-          python3 utils/get_ci_error_statistics.py --workflow_run_id 4258755021 --output_dir warnings_in_ci --token ${{ secrets.ACCESS_REPO_INFO_TOKEN }} --from_gh
+          python3 utils/get_ci_error_statistics.py --workflow_run_id 4258755021 --output_dir warnings_in_ci --token ${{ secrets.ACCESS_REPO_INFO_TOKEN }}
 
       - name: artifacts
         if: ${{ always() }}
