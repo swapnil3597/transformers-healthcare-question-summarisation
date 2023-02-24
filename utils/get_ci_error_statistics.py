@@ -14,18 +14,22 @@ def get_job_links(workflow_run_id):
     run_id = workflow_run_id
     url = f"https://api.github.com/repos/huggingface/transformers/actions/runs/{run_id}/jobs?per_page=100"
     result = requests.get(url).json()
+    print(result)
     jobs = {}
 
     try:
         jobs.update({job["name"]: job["html_url"] for job in result["jobs"]})
         pages_to_iterate_over = math.ceil((result["total_count"] - 100) / 100)
+        print(pages_to_iterate_over)
 
         for i in range(pages_to_iterate_over):
+            print(i)
             result = requests.get(url + f"&page={i + 2}").json()
             jobs.update({job["name"]: job["html_url"] for job in result["jobs"]})
 
         return jobs
     except Exception as e:
+        print(i)
         print("Unknown error, could not fetch links.", e)
 
     return {}
