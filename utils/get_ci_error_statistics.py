@@ -10,8 +10,8 @@ from collections import Counter
 import requests
 
 
-def get_job_links():
-    run_id = os.environ["GITHUB_RUN_ID"]
+def get_job_links(workflow_run_id):
+    run_id = workflow_run_id
     url = f"https://api.github.com/repos/huggingface/transformers/actions/runs/{run_id}/jobs?per_page=100"
     result = requests.get(url).json()
     jobs = {}
