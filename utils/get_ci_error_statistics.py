@@ -32,7 +32,7 @@ def get_job_links(workflow_run_id):
         return jobs
     except Exception as e:
         print(i)
-        print("Unknown error, could not fetch links.", e
+        print("Unknown error, could not fetch links.", e)
 
     return {}
 
