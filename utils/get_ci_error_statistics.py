@@ -14,7 +14,6 @@ def get_job_links(workflow_run_id):
     run_id = workflow_run_id
     url = f"https://api.github.com/repos/huggingface/transformers/actions/runs/{run_id}/jobs?per_page=100"
     result = requests.get(url).json()
-    print(result)
     jobs = {}
 
     try:
@@ -27,10 +26,13 @@ def get_job_links(workflow_run_id):
             result = requests.get(url + f"&page={i + 2}").json()
             jobs.update({job["name"]: job["html_url"] for job in result["jobs"]})
 
+        print(len(jobs))
+        print("Extract warnings in CI artifacts" in jobs)
+
         return jobs
     except Exception as e:
         print(i)
-        print("Unknown error, could not fetch links.", e)
+        print("Unknown error, could not fetch links.", e
 
     return {}
 
