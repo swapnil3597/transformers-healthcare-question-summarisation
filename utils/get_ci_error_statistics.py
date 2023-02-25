@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
     os.makedirs(args.output_dir, exist_ok=True)
 
-    artifacts_links = get_artifacts_links(args.worflow_run_id)
+    artifacts_links = get_artifacts_links(args.workflow_run_id)
 
     _job_links = get_job_links(args.workflow_run_id)
     job_links = {}
