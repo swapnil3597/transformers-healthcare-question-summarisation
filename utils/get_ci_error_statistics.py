@@ -74,6 +74,28 @@ def get_job_links(workflow_run_id):
     return {}
 
 
+def get_artifacts_links(worflow_run_id):
+    """Get all artifact links from a workflow run"""
+
+    url = f"https://api.github.com/repos/huggingface/transformers/actions/runs/{worflow_run_id}/artifacts?per_page=100"
+    result = requests.get(url).json()
+    artifacts = {}
+
+    try:
+        artifacts.update({artifact["name"]: artifact["archive_download_url"] for artifact in result["artifacts"]})
+        pages_to_iterate_over = math.ceil((result["total_count"] - 100) / 100)
+
+        for i in range(pages_to_iterate_over):
+            result = requests.get(url + f"&page={i + 2}").json()
+            artifacts.update({artifact["name"]: artifact["archive_download_url"] for artifact in result["artifacts"]})
+
+        return artifacts
+    except Exception as e:
+        print("Unknown error, could not fetch links.", e)
+
+    return {}
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     # Required parameters
@@ -93,6 +115,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     os.makedirs(args.output_dir, exist_ok=True)
+
+    artifacts_links = get_artifacts_links(args.worflow_run_id)
 
     _job_links = get_job_links(args.workflow_run_id)
     job_links = {}
