@@ -17,6 +17,18 @@ def get_job_links(workflow_run_id):
     jobs = {}
 
     try:
+
+        print(result.keys())
+        if "jobs" in result:
+            _jobs = result["jobs"]
+            for _job in _jobs:
+                if "name" in _job:
+                    print(_job["name"])
+                else:
+                    print("None")
+                print("-" * 40)
+        print("=" * 80)
+
         jobs.update({job["name"]: job["html_url"] for job in result["jobs"]})
         pages_to_iterate_over = math.ceil((result["total_count"] - 100) / 100)
         print(pages_to_iterate_over)
@@ -24,6 +36,18 @@ def get_job_links(workflow_run_id):
         for i in range(pages_to_iterate_over):
             print(i)
             result = requests.get(url + f"&page={i + 2}").json()
+
+            print(result.keys())
+            if "jobs" in result:
+                _jobs = result["jobs"]
+                for _job in _jobs:
+                    if "name" in _job:
+                        print(_job["name"])
+                    else:
+                        print("None")
+                    print("-" * 40)
+            print("=" * 80)
+
             jobs.update({job["name"]: job["html_url"] for job in result["jobs"]})
 
         print(len(jobs))
