@@ -19,6 +19,12 @@ def get_job_links(workflow_run_id):
     try:
 
         print(result.keys())
+
+        if "documentation_url" in result:
+            print(result["documentation_url"])
+        if "message" in result:
+            print(result["message"])
+
         if "jobs" in result:
             _jobs = result["jobs"]
             for _job in _jobs:
@@ -27,6 +33,7 @@ def get_job_links(workflow_run_id):
                 else:
                     print("None")
                 print("-" * 40)
+
         print("=" * 80)
 
         jobs.update({job["name"]: job["html_url"] for job in result["jobs"]})
@@ -38,6 +45,12 @@ def get_job_links(workflow_run_id):
             result = requests.get(url + f"&page={i + 2}").json()
 
             print(result.keys())
+
+            if "documentation_url" in result:
+                print(result["documentation_url"])
+            if "message" in result:
+                print(result["message"])
+
             if "jobs" in result:
                 _jobs = result["jobs"]
                 for _job in _jobs:
