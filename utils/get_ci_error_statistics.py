@@ -144,3 +144,7 @@ if __name__ == "__main__":
         json.dump(job_links, fp, ensure_ascii=False, indent=4)
 
     print(job_links)
+
+    if args.token is None:
+        print(job_links["job_1"])
+        print(job_links["job_2"])
