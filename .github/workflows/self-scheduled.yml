@@ -72,7 +72,7 @@ jobs:
 
       - name: Job 2 step
         run: |
-          python3 utils/get_ci_error_statistics.py --workflow_run_id ${{ github.run_id }} --output_dir job_2
+          python3 utils/get_ci_error_statistics.py --workflow_run_id ${{ github.run_id }} --output_dir job_2 --token None
 
       - name: artifacts
         if: ${{ always() }}

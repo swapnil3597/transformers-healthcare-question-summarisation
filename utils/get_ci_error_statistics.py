@@ -125,6 +125,9 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
+    if args.token == "None":
+        args.token = None
+
     os.makedirs(args.output_dir, exist_ok=True)
 
     # artifacts_links = get_artifacts_links(args.workflow_run_id)
