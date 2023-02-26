@@ -10,10 +10,17 @@ from collections import Counter
 import requests
 
 
-def get_job_links(workflow_run_id):
+def get_job_links(workflow_run_id, token=None):
+
     run_id = workflow_run_id
+
+    headers = None
+    if token is not None:
+        headers = {"Accept": "application/vnd.github+json", "Authorization": f"Bearer {token}"}
+
     url = f"https://api.github.com/repos/huggingface/transformers/actions/runs/{run_id}/jobs?per_page=100"
-    result = requests.get(url).json()
+
+    result = requests.get(url, headers=headers).json()
     jobs = {}
 
     try:
@@ -42,7 +49,7 @@ def get_job_links(workflow_run_id):
 
         for i in range(pages_to_iterate_over):
             print(i)
-            result = requests.get(url + f"&page={i + 2}").json()
+            result = requests.get(url + f"&page={i + 2}", headers=headers).json()
 
             print(result.keys())
 
