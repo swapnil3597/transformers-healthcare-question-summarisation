@@ -14,7 +14,8 @@ def get_job_links(workflow_run_id, token=None):
 
     print(token is None)
     print(type(token))
-    print(token[:4])
+    if token is not None:
+        print(token[:4])
 
     run_id = workflow_run_id
 
