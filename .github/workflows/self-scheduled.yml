@@ -24,8 +24,8 @@ env:
   RUN_PT_TF_CROSS_TESTS: 1
 
 jobs:
-  run_extract_warnings:
-    name: Extract warnings in CI artifacts
+  job_1:
+    name: Job 1
     runs-on: ubuntu-latest
     if: always()
     steps:
@@ -40,13 +40,43 @@ jobs:
       - name: Show installed libraries and their versions
         run: pip freeze
 
-      - name: Extract warnings in CI artifacts
+      - name: Job 1 step
         run: |
-          python3 utils/get_ci_error_statistics.py --workflow_run_id 4258755021 --output_dir warnings_in_ci --token ${{ secrets.ACCESS_REPO_INFO_TOKEN }}
+          python3 utils/get_ci_error_statistics.py --workflow_run_id ${{ github.run_id }} --output_dir job_1 --token ${{ secrets.ACCESS_REPO_INFO_TOKEN }}
 
       - name: artifacts
         if: ${{ always() }}
         uses: actions/upload-artifact@v3
         with:
-          name: job_links
-          path: /workspace/transformers/job_links.json
+          name: job_links_1
+          path: /workspace/transformers/job_1/job_links.json
+
+  job_2:
+    name: Job 2
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [
+        job_1,
+    ]
+    steps:
+      - name: Checkout transformers
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Install transformers
+        run: pip install transformers
+
+      - name: Show installed libraries and their versions
+        run: pip freeze
+
+      - name: Job 2 step
+        run: |
+          python3 utils/get_ci_error_statistics.py --workflow_run_id ${{ github.run_id }} --output_dir job_2 --token ${{ secrets.ACCESS_REPO_INFO_TOKEN }}
+
+      - name: artifacts
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: job_links_2
+          path: /workspace/transformers/job_2/job_links.json
