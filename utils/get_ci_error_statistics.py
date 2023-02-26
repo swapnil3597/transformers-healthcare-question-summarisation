@@ -150,5 +150,5 @@ if __name__ == "__main__":
     print(job_links)
 
     if args.token is None:
-        print(job_links["job_1"])
-        print(job_links["job_2"])
+        print(job_links["Job_1"])
+        print(job_links["Job_2"])
