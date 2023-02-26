@@ -125,7 +125,7 @@ if __name__ == "__main__":
 
     # artifacts_links = get_artifacts_links(args.workflow_run_id)
 
-    _job_links = get_job_links(args.workflow_run_id)
+    _job_links = get_job_links(args.workflow_run_id, token=args.token)
     job_links = {}
     # To deal with `workflow_call` event, where a job name is the combination of the job names in the caller and callee.
     # For example, `PyTorch 1.11 / Model tests (models/albert, single-gpu)`.
