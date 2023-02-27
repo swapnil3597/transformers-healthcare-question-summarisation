@@ -70,7 +70,7 @@ jobs:
       matrix:
         folders: ${{ fromJson(needs.setup.outputs.matrix) }}
         machine_type: [single-gpu]
-    runs-on: ${{ format('{0}-{1}', matrix.machine_type, 'docker') }}
+    runs-on: ${{ format('{0}-{1}', matrix.machine_type, 'docker-past-ci') }}
     container:
       image: huggingface/transformers-all-latest-gpu
       options: --gpus 0 --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
