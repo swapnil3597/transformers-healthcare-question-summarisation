@@ -106,6 +106,10 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    print(args.token is None)
+    print(type(args.token))
+    print(args.token[0:4])
+
     from_gh = args.from_gh
     if from_gh:
         # The artifacts have to be downloaded using `actions/download-artifact@v3`

@@ -736,9 +736,9 @@ if __name__ == "__main__":
     else:
         ci_title = ""
 
-    if runner_not_available or runner_failed or setup_failed:
-        Message.error_out(title, ci_title, runner_not_available, runner_failed, setup_failed)
-        exit(0)
+    # if runner_not_available or runner_failed or setup_failed:
+    #     Message.error_out(title, ci_title, runner_not_available, runner_failed, setup_failed)
+    #     exit(0)
 
     arguments = sys.argv[1:][0]
     try:
@@ -752,6 +752,7 @@ if __name__ == "__main__":
     github_actions_job_links = get_job_links(
         workflow_run_id=os.environ["GITHUB_RUN_ID"], token=os.environ["ACCESS_REPO_INFO_TOKEN"]
     )
+    print(github_actions_job_links.keys())
     available_artifacts = retrieve_available_artifacts()
 
     modeling_categories = [
